@@ -1,1 +1,10 @@
 /RdBuild.Shared/obj/*
+/.vs
+/RdBuild.Client/obj
+/RdBuild.Coordinator/obj
+/_ReSharper.Caches/ReSharperPlatformVs17221_0231f5a6.RdBuild.00
+/RdBuild.Client/bin/Debug/netcoreapp3.1
+/RdBuild.Coordinator/bin/Debug/netcoreapp3.1
+/RdBuild.Shared/bin/Debug/netcoreapp3.1
+/RdBuild.Shared.Tests/bin/Debug/netcoreapp3.1
+/RdBuild.Shared.Tests/obj
