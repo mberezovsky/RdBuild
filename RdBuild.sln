@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdBuild.Client", "RdBuild.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdBuild.Coordinator", "RdBuild.Coordinator\RdBuild.Coordinator.csproj", "{1F9190FB-EF6D-4C9F-8142-320033D5B18F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdBuild.Shared.Tests", "RdBuild.Shared.Tests\RdBuild.Shared.Tests.csproj", "{ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RdBuild.Shared.Tests", "RdBuild.Shared.Tests\RdBuild.Shared.Tests.csproj", "{ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{769440B9-F3BA-4E76-A52E-26B44CE72749}"
+	ProjectSection(SolutionItems) = preProject
+		TODO.txt = TODO.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
