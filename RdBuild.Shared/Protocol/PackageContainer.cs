@@ -1,4 +1,6 @@
-namespace RdBuild.Client;
+using System.Collections.Generic;
+
+namespace RdBuild.Shared.Protocol;
 
 /// Package contains the data, sending to opposite site.
 /// Package data consists of two parts - headers and body.
@@ -16,10 +18,4 @@ public class PackageContainer
 {
     public IList<SectionHeader> SectionHeaderList { get; set; }
     
-}
-
-public class SectionHeader
-{
-    public EHeaderSectionType SectionType { get; set; }
-    public int SectionSize { get; set; }
 }

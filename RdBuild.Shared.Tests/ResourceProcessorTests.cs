@@ -60,8 +60,8 @@ namespace RdBuild.Shared.Tests
             processor.RegisterResource(res1, token);
             processor.RegisterResource(res2, token);
 
-            Assert.AreEqual(2, processorDebug.GetInitializingCount(res1.GetType()));
-            Assert.AreEqual(0, processorDebug.GetPreparingCount(res1.GetType()));
+            Assert.That(processorDebug.GetInitializingCount(res1.GetType()), Is.EqualTo(2));
+            Assert.That(processorDebug.GetPreparingCount(res1.GetType()), Is.EqualTo(0));
 
             try
             {
@@ -74,18 +74,18 @@ namespace RdBuild.Shared.Tests
             }
 
             processor.ResourceInitialized(res1, token);
-            Assert.AreEqual(1, processorDebug.GetInitializingCount(res1.GetType()));
-            Assert.AreEqual(1, processorDebug.GetPreparingCount(res1.GetType()));
+            Assert.That(processorDebug.GetInitializingCount(res1.GetType()), Is.EqualTo(1));
+            Assert.That(processorDebug.GetPreparingCount(res1.GetType()), Is.EqualTo(1));
             processor.Activate(res1);
 
-            Assert.AreEqual(0, processorDebug.GetPreparingCount(res1.GetType()));
-            Assert.AreEqual(1, processorDebug.GetActiveCount(res1.GetType()));
+            Assert.That(processorDebug.GetPreparingCount(res1.GetType()), Is.EqualTo(0));
+            Assert.That(processorDebug.GetActiveCount(res1.GetType()), Is.EqualTo(1));
 
             var res = processor.GetResource<JobResource1>(token);
 
             Assert.IsNotNull(res);
 
-            Assert.AreEqual(0, processorDebug.GetActiveCount(res1.GetType()));
+            Assert.That(processorDebug.GetActiveCount(res1.GetType()), Is.EqualTo(0));
         }
     }
 }
