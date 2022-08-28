@@ -1,4 +1,5 @@
 /RdBuild.Shared/obj/*
+/RdBuild.Shared/bin/*
 /.vs
 /RdBuild.Client/obj
 /RdBuild.Coordinator/obj
@@ -8,3 +9,4 @@
 /RdBuild.Shared/bin/Debug/netcoreapp3.1
 /RdBuild.Shared.Tests/bin/Debug/netcoreapp3.1
 /RdBuild.Shared.Tests/obj
+/RdBuild.Shared/obj/
