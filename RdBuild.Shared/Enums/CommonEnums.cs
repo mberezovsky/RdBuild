@@ -21,5 +21,10 @@ namespace RdBuild.Shared.Enums
             StringSection,
             ObjectSection
         }
+
+        public enum EParameterNames
+        {
+            ServerName,
+        }
     }
 }

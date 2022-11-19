@@ -29,9 +29,9 @@ public class CoordinatorCommandsProcessor : CommandProcessor<CommonEnums.Coordin
     /// <returns></returns>
     private Response.EResponseCode RegisterServerData(Request<CommonEnums.CoordinatorCommands> req, Response resp)
     {
-        var requestReader = new RequestReader(req);
+        var requestReader = new RequestReader();
         requestReader.ReadObject<RegisterServerData>(out var regData);
-        requestReader.ReadString(out var serverName);
+        requestReader.ReadParameter(CommonEnums.EParameterNames.ServerName, out string serverName);
         return Response.EResponseCode.OK;
     }
 }
@@ -48,5 +48,10 @@ internal class RequestReader
     public void ReadObject<TObject>(out TObject res)
     {
         readerActionList.Add(();
+    }
+
+    public void ReadParameter(CommonEnums.EParameterNames serverName, out string s)
+    {
+        throw new NotImplementedException();
     }
 }
