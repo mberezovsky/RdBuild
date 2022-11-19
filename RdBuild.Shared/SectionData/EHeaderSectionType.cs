@@ -1,6 +1,9 @@
-namespace RdBuild.Client;
+namespace RdBuild.Shared.SectionData;
 
-public enum EHeaderSectionType
+public enum EHeaderSectionType : int
 {
-    MainParametersSection
+    MainParametersSection,
+    ObjectSection,
+    FileSection,
+    StringSection
 }

@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO.txt = TODO.txt
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RdBuild.Server", "RdBuild.Server\RdBuild.Server.csproj", "{6BD90743-EB1C-4BE5-8A63-4122FED8406E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BD90743-EB1C-4BE5-8A63-4122FED8406E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BD90743-EB1C-4BE5-8A63-4122FED8406E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BD90743-EB1C-4BE5-8A63-4122FED8406E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BD90743-EB1C-4BE5-8A63-4122FED8406E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

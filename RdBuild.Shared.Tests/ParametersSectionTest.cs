@@ -26,11 +26,13 @@ namespace RdBuild.Shared.Tests
 
             Assert.That(section.Count, Is.EqualTo(0));
 
-            section.SerializeBodyToStream(stream);
-            stream.Position = 0;
+            var writer = new BinaryWriter(stream);
+            section.SerializeBodyToStream(writer);
 
+            stream.Position = 0;
             var newSection = new ParametersSection<MyTestEnum>();
-            newSection.DeserializeBodyFromStream(stream);
+            using (var reader = new BinaryReader(stream))
+                newSection.DeserializeBodyFromStream(reader);
 
             Assert.That(0, Is.EqualTo(newSection.Count));
         }
@@ -45,13 +47,15 @@ namespace RdBuild.Shared.Tests
         {
             var stream = new MemoryStream();
             var outSection = new ParametersSection<MyTestEnum>();
-            outSection.SerializeBodyToStream(stream);
-            stream.Position = 0;
+            var writer = new BinaryWriter(stream);
+            outSection.SerializeBodyToStream(writer);
 
+            stream.Position = 0;
             var inSection = new ParametersSection<MyWrongEnum>();
             try
             {
-                inSection.DeserializeBodyFromStream(stream);
+                using (var reader = new BinaryReader(stream))
+                    inSection.DeserializeBodyFromStream(reader);
             }
             catch (EnumIncompatibleException)
             {
@@ -85,11 +89,13 @@ namespace RdBuild.Shared.Tests
             catch (InvalidDataException) { }
             catch (Exception) { Assert.Fail(); }
 
-            mySection.SerializeBodyToStream(stream);
-            stream.Position = 0;
+            var writer = new BinaryWriter(stream);
+            mySection.SerializeBodyToStream(writer);
 
+            stream.Position = 0;
             var inSection = new ParametersSection<MyTestEnum>();
-            inSection.DeserializeBodyFromStream(stream);
+            using (var reader = new BinaryReader(stream))
+                inSection.DeserializeBodyFromStream(reader);
 
             Assert.That(inSection.Count, Is.EqualTo(mySection.Count));
             Assert.That(inSection[MyTestEnum.Val1], Is.EqualTo(mySection[MyTestEnum.Val1]));

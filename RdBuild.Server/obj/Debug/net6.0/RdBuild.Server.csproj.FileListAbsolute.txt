@@ -1,0 +1,15 @@
+C:\work\RdBuild\RdBuild.Server\bin\Debug\net6.0\RdBuild.Server.deps.json
+C:\work\RdBuild\RdBuild.Server\bin\Debug\net6.0\RdBuild.Server.dll
+C:\work\RdBuild\RdBuild.Server\bin\Debug\net6.0\RdBuild.Server.pdb
+C:\work\RdBuild\RdBuild.Server\bin\Debug\net6.0\RdBuild.Shared.dll
+C:\work\RdBuild\RdBuild.Server\bin\Debug\net6.0\RdBuild.Shared.pdb
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.csproj.AssemblyReference.cache
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.AssemblyInfoInputs.cache
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.AssemblyInfo.cs
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.csproj.CoreCompileInputs.cache
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.csproj.CopyComplete
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.dll
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\refint\RdBuild.Server.dll
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\RdBuild.Server.pdb
+C:\work\RdBuild\RdBuild.Server\obj\Debug\net6.0\ref\RdBuild.Server.dll

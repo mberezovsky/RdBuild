@@ -4,5 +4,12 @@
     &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.ResourceProcessorTests&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.StreamingUtilsTest&lt;/TestId&gt;&#xD;
     &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.ParametersSectionTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.ObjectSectionTest.EmptyObjectTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.ObjectSectionTest.NullObjectTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.ObjectSectionTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.FileSectionTests.WrongFileTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.FileSectionTests.CorrectFileTransfer&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RdBuild.Shared.Tests.Server.Tests.ServerTests.ServerStartupTest&lt;/TestId&gt;&#xD;
+    &lt;TestId&gt;NUnit3x::ECFAA9B0-C430-4A4B-AD7D-A8FC66D220E5::.NETCoreApp,Version=v3.1::RoutesTests.RoutesTest1&lt;/TestId&gt;&#xD;
   &lt;/TestAncestor&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

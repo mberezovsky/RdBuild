@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using RdBuild.Client;
 
 namespace RdBuild.Shared.Protocol;
 
@@ -16,6 +18,17 @@ namespace RdBuild.Shared.Protocol;
 ///         - Header section length
 public class PackageContainer
 {
+    class SectionData
+    {
+        public SectionHeader Header;
+        public Section Body;
+    }
+
     public IList<SectionHeader> SectionHeaderList { get; set; }
-    
+
+    public void SerializeTo(Stream stream)
+    {
+
+    }
+
 }

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using RdBuild.Client;
 using RdBuild.Shared.Exceptions;
-using RdBuild.Shared.Extensions;
+using RdBuild.Shared.SectionData;
 
 namespace RdBuild.Shared.Protocol;
 
@@ -15,31 +14,35 @@ public class ParametersSection<TEnum> : Section where TEnum : System.Enum
     {
     }
 
-    public override void SerializeBodyToStream(Stream stream)
+    public override void SerializeBodyToStream(BinaryWriter writer)
     {
-        stream.WriteToStream(typeof(TEnum).FullName);
-        stream.WriteToStream(m_parameters.Count);
+        var fullName = typeof(TEnum).FullName;
+        if (fullName == null)
+            throw new ArgumentException();
+        writer.Write(fullName);
+        writer.Write(m_parameters.Count);
         foreach (var (name, par) in m_parameters)
         {
-            stream.WriteToStream(name.ToString()).WriteToStream(par);
+            writer.Write(name.ToString());
+            writer.Write(par);
         }
     }
 
-    public override void DeserializeBodyFromStream(Stream stream)
+    public override void DeserializeBodyFromStream(BinaryReader reader)
     {
-        stream.ReadFromStream(out string enumName);
+        string enumName = reader.ReadString();
         if (enumName != typeof(TEnum).FullName)
             throw new EnumIncompatibleException();
 
-        stream.ReadFromStream(out int dataLen);
+        int dataLen = reader.ReadInt32();
         m_parameters.Clear();
 
         for (int i = 0; i < dataLen; i++)
         {
-            stream.ReadFromStream(out string skey)
-                .ReadFromStream(out string val);
+            string keyName = reader.ReadString();
+            string val = reader.ReadString();
 
-            var key = (TEnum)Enum.Parse(typeof(TEnum), skey);
+            var key = (TEnum)Enum.Parse(typeof(TEnum), keyName);
 
             if (m_parameters.ContainsKey(key))
                 throw new ParameterDeserializationException("Key is already exist");
@@ -49,8 +52,12 @@ public class ParametersSection<TEnum> : Section where TEnum : System.Enum
 
     public override int GetBodyLength()
     {
+        var fullName = typeof(TEnum).FullName;
+        if (fullName == null)
+            throw new ArgumentException();
+
         int bodyLen = sizeof(int)
-                      + typeof(TEnum).FullName.Length
+                      + fullName.Length
                       + sizeof(int) // parametersCount
             ;
 

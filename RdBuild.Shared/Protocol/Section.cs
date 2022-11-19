@@ -1,6 +1,7 @@
 using System.IO;
 using RdBuild.Client;
 using RdBuild.Shared.Extensions;
+using RdBuild.Shared.SectionData;
 
 namespace RdBuild.Shared.Protocol;
 
@@ -28,8 +29,8 @@ public abstract class Section
         stream.ReadFromStream(out int bodyLen);
     }
 
-    public abstract void SerializeBodyToStream(Stream stream);
-    public abstract void DeserializeBodyFromStream(Stream stream);
+    public abstract void SerializeBodyToStream(BinaryWriter binaryWriter);
+    public abstract void DeserializeBodyFromStream(BinaryReader stream);
 
     public abstract int GetBodyLength();
 }

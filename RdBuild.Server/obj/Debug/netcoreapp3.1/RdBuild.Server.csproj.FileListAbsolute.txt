@@ -1,0 +1,13 @@
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.csproj.AssemblyReference.cache
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.GeneratedMSBuildEditorConfig.editorconfig
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.AssemblyInfoInputs.cache
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.AssemblyInfo.cs
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.csproj.CoreCompileInputs.cache
+C:\work\RdBuild\RdBuild.Server\bin\Debug\netcoreapp3.1\RdBuild.Server.deps.json
+C:\work\RdBuild\RdBuild.Server\bin\Debug\netcoreapp3.1\RdBuild.Server.dll
+C:\work\RdBuild\RdBuild.Server\bin\Debug\netcoreapp3.1\RdBuild.Server.pdb
+C:\work\RdBuild\RdBuild.Server\bin\Debug\netcoreapp3.1\RdBuild.Shared.dll
+C:\work\RdBuild\RdBuild.Server\bin\Debug\netcoreapp3.1\RdBuild.Shared.pdb
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.csproj.CopyComplete
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.dll
+C:\work\RdBuild\RdBuild.Server\obj\Debug\netcoreapp3.1\RdBuild.Server.pdb

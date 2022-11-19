@@ -40,6 +40,11 @@ static class ParameterUtilsEx
         return stream;
     }
 
+    internal static int GetStreamLength(string str)
+    {
+        return sizeof(int) + str.Length;
+    }
+
     public class StreamReadingException : Exception
     {
 

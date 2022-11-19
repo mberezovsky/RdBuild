@@ -4,6 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
+
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RdBuild.Client\RdBuild.Client.csproj" />
+    <ProjectReference Include="..\RdBuild.Coordinator\RdBuild.Coordinator.csproj" />
+    <ProjectReference Include="..\RdBuild.Server\RdBuild.Server.csproj" />
     <ProjectReference Include="..\RdBuild.Shared\RdBuild.Shared.csproj" />
   </ItemGroup>
 

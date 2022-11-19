@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "RdBuild.Server/1.0.0": {
+        "dependencies": {
+          "RdBuild.Shared": "1.0.0"
+        },
+        "runtime": {
+          "RdBuild.Server.dll": {}
+        }
+      },
+      "RdBuild.Shared/1.0.0": {
+        "runtime": {
+          "RdBuild.Shared.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RdBuild.Server/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RdBuild.Shared/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
