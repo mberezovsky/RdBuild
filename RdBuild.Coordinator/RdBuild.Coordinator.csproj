@@ -9,4 +9,8 @@
       <ProjectReference Include="..\RdBuild.Server\RdBuild.Server.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
+    </ItemGroup>
+
 </Project>

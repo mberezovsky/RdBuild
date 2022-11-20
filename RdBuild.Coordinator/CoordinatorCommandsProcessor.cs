@@ -2,6 +2,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using RdBuild.Server;
 using RdBuild.Shared.Enums;
 using RdBuild.Shared.Protocol;
@@ -42,12 +44,16 @@ public class RegisterServerData
 
 internal class RequestReader
 {
-    Dictionary<EHeaderSectionType, Action<Stream>> m_readerActionList = new();
+    readonly Dictionary<EHeaderSectionType, Action<BinaryReader>> m_readerActionList = new();
     public RequestReader() {}
 
     public void ReadObject<TObject>(out TObject res)
     {
-        readerActionList.Add(();
+        m_readerActionList.Add(EHeaderSectionType.ObjectSection, reader =>
+        {
+            string buffer = reader.ReadString();
+            JsonConvert.DeserializeObject<TObject>(buffer);
+        });
     }
 
     public void ReadParameter(CommonEnums.EParameterNames serverName, out string s)

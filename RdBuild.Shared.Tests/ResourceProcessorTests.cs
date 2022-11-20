@@ -5,6 +5,7 @@ using RdBuild.Shared.Tests.Utils;
 
 namespace RdBuild.Shared.Tests
 {
+    [Tests]
     public class ResourceProcessorTests
     {
         [SetUp]
