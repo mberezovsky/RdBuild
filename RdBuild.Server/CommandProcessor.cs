@@ -11,7 +11,7 @@ public interface ICommandProcessor<TECommandType> where TECommandType : Enum
 public interface ICommandProcessorBuilder<TECommandType> where TECommandType: Enum
 {
     void RegisterRoute(TECommandType commandType, Func<Request<TECommandType>, Response, Response.EResponseCode> processFunction,
-        Predicate<Request<TECommandType>> filterFunction = null);
+        Predicate<Request<TECommandType>>? filterFunction = null);
 }
 
 public class CommandProcessor<TECommandType> : 

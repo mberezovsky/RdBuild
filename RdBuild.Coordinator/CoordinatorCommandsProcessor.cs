@@ -49,11 +49,12 @@ internal class RequestReader
 
     public void ReadObject<TObject>(out TObject res)
     {
-        m_readerActionList.Add(EHeaderSectionType.ObjectSection, reader =>
-        {
-            string buffer = reader.ReadString();
-            JsonConvert.DeserializeObject<TObject>(buffer);
-        });
+        throw new NotImplementedException();
+        // m_readerActionList.Add(EHeaderSectionType.ObjectSection, reader =>
+        // {
+        //     string buffer = reader.ReadString();
+        //     JsonConvert.DeserializeObject<TObject>(buffer);
+        // });
     }
 
     public void ReadParameter(CommonEnums.EParameterNames serverName, out string s)

@@ -34,7 +34,7 @@ namespace RdBuild.Shared.Tests
             using (var reader = new BinaryReader(stream))
                 newSection.DeserializeBodyFromStream(reader);
 
-            Assert.That(0, Is.EqualTo(newSection.Count));
+            Assert.That(newSection, Is.Empty);
         }
 
         enum MyWrongEnum
@@ -61,7 +61,7 @@ namespace RdBuild.Shared.Tests
             {
                 Assert.Pass();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Assert.Fail();
             }

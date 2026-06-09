@@ -5,7 +5,7 @@ using RdBuild.Shared.Tests.Utils;
 
 namespace RdBuild.Shared.Tests
 {
-    [Tests]
+    [TestFixture]
     public class ResourceProcessorTests
     {
         [SetUp]
@@ -29,7 +29,7 @@ namespace RdBuild.Shared.Tests
                 resource = processor.GetResource<JobResource1>(cancellationTokenSource.Token);
                 Assert.Fail("Must be cancelled");
             }
-            catch (OperationCanceledException e)
+            catch (OperationCanceledException)
             {
             }
 

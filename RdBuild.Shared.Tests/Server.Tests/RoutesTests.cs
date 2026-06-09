@@ -21,9 +21,9 @@ public class RoutesTests
         Module1
     }
 
-    public class MyCommandProcessor : CommandProcessor<MyModules, MyCommands>
+    public class MyCommandProcessor : CommandProcessor<MyCommands>
     {
-        public MyCommandProcessor() : base(MyModules.Module1)
+        public MyCommandProcessor()
         {
             Get[MyCommands.Command1] = (request1, response) => Response.EResponseCode.OK;
             Get[MyCommands.Command2] = (request, response) => Response.EResponseCode.InternalError;

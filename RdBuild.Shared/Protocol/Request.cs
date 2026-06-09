@@ -16,9 +16,9 @@ namespace RdBuild.Shared.Protocol
 
         public TCommandEnum Command { get; set; }
 
-        public TObject GetObjectSection<TObject>()
+        public SectionHeader GetObjectSection()
         {
-            m_headers.FirstOrDefault(item => item.SectionType == EHeaderSectionType.ObjectSection)
+            return m_headers.FirstOrDefault(item => item.SectionType == EHeaderSectionType.ObjectSection);
         }
     }
 

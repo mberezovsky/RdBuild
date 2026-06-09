@@ -13,8 +13,7 @@ class PackageProcessor
 {
     public void ProcessConnection(Socket clientSocket)
     {
-
-        IRequest
+        throw new NotImplementedException();
     }
 
 
