@@ -1,299 +1,139 @@
 # RdBuild
 
-**RdBuild** — это распределенная система сборки для удаленного параллельного выполнения задач. Проект разработан по аналогии с Xoreax Incredibuild и предназначен для распределения вычислительной нагрузки между несколькими машинами в сети.
+**Распределённая система сборки C++ проектов**  
+(аналог Incredibuild, реализованный на C#)
 
-## Обзор
+[![.NET](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-RdBuild позволяет распределять задачи сборки или вычислительные задачи между несколькими участниками (clients/servers), координируя их работу через центральный координатор. Система использует собственный бинарный протокол для обмена данными по TCP.
+---
 
-### Основные возможности
-- Распределенное выполнение задач
-- Многопоточная архитектура сервера
-- TCP-сокеты для межпроцессного взаимодействия
-- Бинарный протокол с секционной структурой
-- Модульная система команд
-- Координация серверов и управление задачами
+## Идея проекта
+
+`RdBuild` позволяет распараллелить компиляцию C++ кода на несколько машин в локальной сети.  
+Координатор раздаёт задачи (отдельные `.cpp` файлы) агентам-серверам, которые выполняют компиляцию и возвращают объектные файлы.
+
+**Проблема:** сборка большого C++ проекта на одной машине может занимать часы.  
+**Решение:** распределение по агентам сокращает время в N раз (по числу ядер/машин).
+
+---
 
 ## Архитектура
 
-Система состоит из нескольких компонентов:
-
-```
-┌─────────────────┐
-│  RdBuild.Client │ ──┐
-└─────────────────┘   │
-                      ├──> TCP Network ──> RdBuild.Coordinator ──> RdBuild.Server
-┌─────────────────┐   │     (Socket)        (Job Management)      (Task Execution)
-│  RdBuild.Server │ ──┘
-└─────────────────┘
-┌──────────────────────┐
-│ RdBuild.Coordinator  │
-└──────────────────────┘
-┌───────────────────────────┐
-│ RdBuild.Shared (Core)     │
-│ - Protocol definitions    │
-│ - Data structures         │
-│ - Command system          │
-└───────────────────────────┘
+```mermaid
+graph LR
+    Coordinator -->|список задач| Client
+    Client -->|компиляция file.cpp| Server1
+    Client -->|компиляция file2.cpp| Server2
+    Server1 -->|file.obj| Client
+    Server2 -->|file2.obj| Client
+    Client -->|собрать| Coordinator
 ```
 
 ### Компоненты
 
-#### RdBuild.Shared
-Ядро системы, содержащее:
-- Определения протокола (Request, Response, SectionHeader, Section)
-- Базовые структуры данных
-- Систему команд (CommandProcessor)
-- Секционную структуру данных
+- **Coordinator** – управляет очередями задач (C++ файлов).
+- **Client** – отправляет задачи агентам, собирает результаты.
+- **Server** (Agent) – запускает `cl.exe` / `g++` и возвращает результат.
 
-#### RdBuild.Client
-Клиентская часть, отвечающая за:
-- Инициацию задач
-- Отправку данных на серверы
-- Обработку ответов
+**Коммуникация:** TCP + бинарный протокол (своя реализация, без внешних RPC-библиотек).
 
-#### RdBuild.Server
-Серверная часть, включающая:
-- ServerDaemon — TCP-сервер, слушающий входящие соединения
-- CommandServer — обработка входящих команд
-- PackageProcessor — обработка пакетов данных
-- Модули обработки команд
+---
 
-#### RdBuild.Coordinator
-Центральный координатор, отвечающий за:
-- Регистрацию и управление серверами
-- Распределение задач между серверами
-- Мониторинг состояния узлов
-- Обработка запросов от клиентов
+## Текущий стек
 
-#### RdBuild.Shared.Tests
-Набор unit-тестов для проверки:
-- Парсинга запросов и ответов
-- Обработки команд
-- Секционной структуры данных
-- Координатора
+- **Язык:** C# (.NET 8)
+- **Платформа:** Windows (агенты могут работать на Linux, если компилятор установлен)
+- **Библиотеки:** только стандартные (`System.Net.Sockets`, `System.Diagnostics`) + Newtonsoft.Json
+- **Сборка:** `dotnet build` или Visual Studio 2022
 
-## Установка и сборка
+---
 
-### Требования
-- [.NET Core SDK 3.1](https://dotnet.microsoft.com/download/dotnet/3.1) или выше
-- Git (для клонирования репозитория)
+## Состояние проекта
 
-### Сборка проекта
+⚠️ **Статус:** прототип / proof-of-concept (не промышленное решение)
 
+✅ **Что работает:**
+- базовая диспетчеризация задач
+- удалённый запуск компиляции
+- возврат объектных файлов
+- регистрация серверов в координаторе
+
+❌ **Что не реализовано:**
+- автоматическое обнаружение агентов
+- отказоустойчивость
+- GUI / консольный клиент
+- поддержка Linux-агентов «из коробки»
+
+Проект не развивался с 2022 года, но код компилируется и базово работает под .NET 8.
+
+---
+
+## Быстрый старт (за 3 шага)
+
+### 1. Клонировать репозиторий
 ```bash
-# Клонирование репозитория
-git clone <repository-url>
-cd RdBuild.master
+git clone https://github.com/mberezovsky/RdBuild.git
+cd RdBuild
+```
 
-# Восстановление зависимостей
-dotnet restore
-
-# Сборка решения
-dotnet build
-
-# Сборка в релизной конфигурации
+### 2. Собрать
+```bash
 dotnet build -c Release
-
-# Запуск тестов
-dotnet test RdBuild.Shared.Tests/RdBuild.Shared.Tests.csproj
 ```
+(или открыть `RdBuild.sln` в Visual Studio 2022 и нажать Build)
 
-### Публикация
-
+### 3. Запустить (пример)
 ```bash
-# Публикация для Linux
-dotnet publish -c Release -r linux-x64 --self-contained true
+# Терминал 1: координатор
+dotnet run --project RdBuild.Coordinator
 
-# Публикация для Windows
-dotnet publish -c Release -r win-x64 --self-contained true
+# Терминал 2: сервер (агент)
+dotnet run --project RdBuild.Server
 
-# Публикация для macOS
-dotnet publish -c Release -r osx-x64 --self-contained true
+# Терминал 3: клиент (указав файл для компиляции)
+dotnet run --project RdBuild.Client -- --file test.cpp
 ```
 
-## Структура проекта
+> **Важно:** на машинах с агентами должен быть установлен компилятор C++ (`cl.exe` из MSVC или `g++`) и добавлен в `PATH`.
+
+---
+
+## Почему этот проект в портфолио?
+
+Код демонстрирует:
+
+- **Сетевое программирование** (TCP-сокеты, асинхронность)
+- **Работу с процессами** (`Process.Start`, перенаправление ввода/вывода)
+- **Архитектуру распределённой системы** (coordinator/worker)
+- **Чистый C# без магии** (минимальное количество внешних зависимостей)
+
+---
+
+## Структура (ключевое)
 
 ```
-RdBuild.master/
-├── RdBuild.Client/              # Клиентская часть
-│   └── Program.cs              # Точка входа клиента
-│
-├── RdBuild.Server/             # Серверная часть
-│   ├── Program.cs              # Точка входа сервера
-│   ├── ServerDaemon.cs         # TCP-сервер и обработка соединений
-│   ├── CommandServer.cs        # Обработка команд
-│   ├── PackageProcessor.cs     # Обработка пакетов (NotImplemented)
-│   └── RequestReader.cs        # Чтение запросов (NotImplemented)
-│
-├── RdBuild.Coordinator/        # Центральный координатор
-│   ├── Program.cs              # Точка входа координатора
-│   ├── CoordinatorCommandsProcessor.cs  # Обработка команд координатора
-│   └── ServerRegistry.cs       # Регистрация серверов
-│
-├── RdBuild.Shared/             # Общая библиотека
-│   ├── Protocol/               # Определения протокола
-│   │   ├── Request.cs          # Запросы (generic)
-│   │   ├── Response.cs         # Ответы
-│   │   ├── SectionHeader.cs    # Заголовки секций
-│   │   └── Section.cs          # Секции данных
-│   ├── Commands/               # Система команд
-│   │   ├── CommandProcessor.cs # Базовый класс процессора команд
-│   │   ├── CommandAttribute.cs # Атрибут команды
-│   │   └── CommandResult.cs    # Результат команды
-│   └── SectionHeaders/         # Специализированные заголовки
-│
-├── RdBuild.Shared.Tests/       # Тесты
-│   ├── RequestTests.cs         # Тесты Request
-│   ├── ResponseTests.cs        # Тесты Response
-│   ├── ResourceProcessorTests.cs # Тесты обработки ресурсов
-│   └── RoutesTests.cs          # Тесты маршрутов команд
-│
-├── .gitignore                  # Исключения для Git
-├── RdBuild.sln                 # Решение Visual Studio
-├── README.md                   # Документация
-└── TODO.txt                    # План разработки
+RdBuild/
+├── RdBuild.Coordinator/   # Центральный узел (раздаёт задачи)
+├── RdBuild.Client/        # Отправляет задачи агентам
+├── RdBuild.Server/        # Агент (выполняет компиляцию)
+├── RdBuild.Shared/        # Общий код: протокол, команды
+└── RdBuild.Shared.Tests/  # Unit-тесты (NUnit)
 ```
 
-## Протокол
+Полная структура — в самом репозитории.
 
-RdBuild использует бинарный протокол с секционной структурой:
-
-```
-┌─────────────────────────────────────────────────────────┐
-│ Request/Response Header                                 │
-├─────────────────────────────────────────────────────────┤
-│ Section 1: Header (SectionHeader)                       │
-├─────────────────────────────────────────────────────────┤
-│ Section 2: Parameters (key-value pairs)                 │
-├─────────────────────────────────────────────────────────┤
-│ Section 3: Object (serialized data)                     │
-├─────────────────────────────────────────────────────────┤
-│ Section 4: File (binary data)                           │
-└─────────────────────────────────────────────────────────┘
-```
-
-### Секции
-- **Header** — метаданные запроса/ответа
-- **Parameters** — параметры команды в формате ключ-значение
-- **Object** — сериализованные данные (Newtonsoft.Json)
-- **File** — бинарные данные файлов
-
-## Ключевые классы
-
-### Request<TCommandEnum>
-Основной класс запроса, генерический по типу команды.
-
-```csharp
-public class Request<TCommandEnum> : Request
-    where TCommandEnum : struct, Enum
-{
-    public Dictionary<string, string> Parameters { get; set; }
-    public TObject Object { get; set; }
-}
-```
-
-### Response
-Класс ответа от сервера.
-
-```csharp
-public class Response
-{
-    public bool IsSuccess { get; set; }
-    public string Message { get; set; }
-    public object Data { get; set; }
-}
-```
-
-### CommandProcessor<TECommandType>
-Базовый класс для обработки команд с поддержкой атрибутов.
-
-```csharp
-public abstract class CommandProcessor<TECommandType>
-    where TECommandType : struct, Enum
-{
-    protected readonly Dictionary<TECommandType, CommandHandler> _routes;
-    
-    public void RegisterRoute(TECommandType command, CommandHandler handler)
-    public CommandResult Execute(TECommandType command, Request request)
-}
-```
-
-### ServerDaemon
-TCP-сервер, слушающий входящие соединения на указанном порту.
-
-```csharp
-public class ServerDaemon
-{
-    private TcpListener _listener;
-    private readonly int _port;
-    
-    public void Start()
-    public void Stop()
-}
-```
-
-### CoordinatorCommandsProcessor
-Обработка команд координатора, включая регистрацию серверов.
-
-```csharp
-public class CoordinatorCommandsProcessor : CommandProcessor<CoordinatorCommands>
-{
-    public void RegisterServer(string serverId, string endpoint)
-    public void UnregisterServer(string serverId)
-    public List<string> GetRegisteredServers()
-}
-```
-
-## Тестирование
-
-Проект использует NUnit для unit-тестов:
-
-```bash
-# Запуск всех тестов
-dotnet test
-
-# Запуск конкретного тестового класса
-dotnet test --filter "FullyQualifiedName~ResourceProcessorTests"
-```
-
-### Тестовые классы
-- **RequestTests** — проверка создания и парсинга запросов
-- **ResponseTests** — проверка формирования ответов
-- **ResourceProcessorTests** — тесты обработки ресурсов (атрибут [TestFixture])
-- **RoutesTests** — тесты регистрации и выполнения маршрутов команд
-
-## Зависимости
-
-- **Newtonsoft.Json** (13.0.1) — сериализация объектов
-- **.NET Core 3.1** — целевой фреймворк
-
-## Известные ограничения
-
-Некоторые компоненты еще не реализованы (см. TODO.txt):
-- [`PackageProcessor`](RdBuild.Server/PackageProcessor.cs) — обработка пакетов данных
-- [`RequestReader`](RdBuild.Server/RequestReader.cs) — чтение запросов из сетевого потока
-- Модульная система сети
-- Система управления задачами (job management)
-- Консольный клиент
-
-Предупреждения компилятора:
-- CS0169 — некоторые поля не используются (marked with `[UsedImplicitly]`)
-
-## Вклад
-
-Вклад в проект приветствуется! Пожалуйста:
-1. Форкните репозиторий
-2. Создайте ветку для вашей функции (`git checkout -b feature/AmazingFeature`)
-3. Зафиксируйте изменения (`git commit -m 'Add some AmazingFeature'`)
-4. Отправьте в ветку (`git push origin feature/AmazingFeature`)
-5. Откройте Pull Request
+---
 
 ## Лицензия
 
-Этот проект лицензирован по лицензии MIT. См. файл LICENSE для подробной информации.
+MIT — свободно используйте в любых целях.
 
-## Благодарности
+---
 
-- Идея архитектуры вдохновлена [Xoreax Incredibuild](https://www.incredibuild.com/)
-- Используется [Newtonsoft.Json](https://www.newtonsoft.com/json) для сериализации
+## Автор
+
+**Mikhail Berezovskiy**  
+[GitHub](https://github.com/mberezovsky)
+
+*Проект создан для демонстрации навыков при поиске работы.*

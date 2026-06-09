@@ -228,3 +228,4 @@ AppPackages/
 
 # Custom rules
 */obj/**
+.github/
